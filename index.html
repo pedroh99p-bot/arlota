@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC2 Odontologia | Dra. Monica L. Arlota - Estética e HOF</title>
+    
+    <!-- Fonts: Outfit (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#4A3F35',        // Marrom/Cinza Escuro para textos
+                            primary: '#CEAD94',     // Bege da Logo
+                            primaryHover: '#B8977E',// Bege mais escuro para hover
+                            surface: '#FFFFFF',     // Branco puro para cards
+                            light: '#FAF8F5',       // Off-white para o fundo
+                            gold: '#D4AF37'         // Dourado para estrelas e detalhes
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'texture-dots': "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNDRUFEOTQiIGZpbGwtb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==')",
+                        'texture-lines': "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgNDBMNDAgMEgwem00MCA0MEwwIDQwaDQweiIgZmlsbD0iI0NFQUQ5NCIgZmlsbC1vcGFjaXR5PSIwLjAyIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Base Styles & Resets */
+        body {
+            background-color: #FAF8F5;
+            color: #4A3F35;
+            overflow-x: hidden;
+        }
+
+        /* Preloader */
+        #preloader {
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        /* Rollers (Marquee) */
+        .roller-container {
+            display: flex;
+            width: max-content;
+            animation: rollerMarquee 20s linear infinite;
+            white-space: nowrap;
+        }
+        .roller-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding-right: 3rem;
+        }
+        @keyframes rollerMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(206, 173, 148, 0.2);
+        }
+
+        /* Nav Compact State */
+        .nav-links-wrapper {
+            transition: all 0.4s ease;
+            max-width: 1000px; /* arbitrary max to allow shrink */
+            opacity: 1;
+        }
+        .nav-compact .nav-links-wrapper {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Hero Watermark */
+        .hero-watermark {
+            position: absolute;
+            font-size: clamp(6rem, 15vw, 20rem);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: rgba(206, 173, 148, 0.05);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        /* Flip Cards (Dores) - CLICK TRIGGER */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 280px;
+            display: block;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        /* Classe ativada por JS no clique */
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 1px solid rgba(206, 173, 148, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        }
+        .flip-card-front {
+            background-color: #FFFFFF;
+            color: #4A3F35;
+        }
+        .flip-card-back {
+            background-color: #CEAD94;
+            color: #FFFFFF;
+            transform: rotateY(180deg);
+        }
+
+        /* Portfolio Automatic Roller (Social Proof) */
+        .portfolio-roller {
+            display: flex;
+            width: max-content;
+            animation: portfolioMarquee 45s linear infinite; 
+        }
+        .portfolio-roller:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Anti-Download Shield */
+        .anti-download-wrapper {
+            position: relative;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .anti-download-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+        }
+
+        /* FAQ Accordion Details */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+
+        /* General Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF8F5; }
+        ::-webkit-scrollbar-thumb { background: #CEAD94; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B8977E; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white relative bg-texture-lines">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-brand-light">
+        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631254/306765921_5535633293146618_8064286451062732630_n._c0uksv.jpg" alt="Logo MC2" class="w-32 h-32 rounded-full object-cover mb-6 animate-pulse shadow-xl shadow-brand-primary/20 border-2 border-brand-primary/30">
+        <div class="font-outfit text-brand-dark tracking-widest text-sm uppercase font-semibold">Preparando sua experiência</div>
+    </div>
+
+    <!-- Botões Flutuantes (WhatsApp e Instagram) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <a href="https://www.instagram.com/mc2odontologia/" target="_blank" class="w-12 h-12 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform border border-white/20">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+        </a>
+        <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform border border-white/20">
+            <i data-lucide="phone" class="w-6 h-6"></i>
+        </a>
+    </div>
+
+    <!-- Top Roller Fixo Absoluto -->
+    <div class="bg-brand-primary text-white py-2 overflow-hidden text-sm font-medium tracking-wider uppercase fixed w-full top-0 z-[60] h-[36px] flex items-center shadow-md">
+        <div class="roller-container">
+            <div class="roller-content">
+                <span>✦ Harmonização Orofacial</span>
+                <span>✦ Facetas em Resina</span>
+                <span>✦ Estética Facial e Dentária</span>
+                <span>✦ Botox e Preenchimento</span>
+                <span>✦ Naturalidade</span>
+            </div>
+            <div class="roller-content">
+                <span>✦ Harmonização Orofacial</span>
+                <span>✦ Facetas em Resina</span>
+                <span>✦ Estética Facial e Dentária</span>
+                <span>✦ Botox e Preenchimento</span>
+                <span>✦ Naturalidade</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar Glassmorphism (Scrolla junto com a página até o limite do top) -->
+    <nav id="main-nav" class="glass-nav fixed w-full top-[36px] z-50 transition-all duration-500 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full">
+            <div class="flex items-center gap-3 flex-shrink-0">
+                <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631254/306765921_5535633293146618_8064286451062732630_n._c0uksv.jpg" alt="Logo MC2 Odontologia" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border border-brand-primary/30 transition-all duration-300 logo-img">
+                <div class="flex flex-col">
+                    <span class="font-outfit font-bold text-base md:text-lg tracking-wide text-brand-dark leading-none">MC2 ODONTOLOGIA</span>
+                    <span class="text-[9px] md:text-[10px] text-brand-primary tracking-widest uppercase mt-1">Estética e Funcional</span>
+                </div>
+            </div>
+            
+            <div class="nav-links-wrapper hidden lg:flex gap-8 text-sm font-medium text-gray-600">
+                <a href="#servicos" class="hover:text-brand-primary transition-colors whitespace-nowrap">Tratamentos</a>
+                <a href="#especialista" class="hover:text-brand-primary transition-colors whitespace-nowrap">Dra. Monica L. Arlota</a>
+                <a href="#portfolio" class="hover:text-brand-primary transition-colors whitespace-nowrap">Resultados</a>
+                <a href="#faq" class="hover:text-brand-primary transition-colors whitespace-nowrap">Dúvidas</a>
+            </div>
+            
+            <div class="flex items-center gap-4 flex-shrink-0">
+                <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Monica%20L.%20Arlota." target="_blank" rel="noopener noreferrer" class="bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold px-5 md:px-6 py-2 md:py-2.5 rounded-full transition-all flex items-center gap-2 text-xs md:text-sm shadow-lg shadow-brand-primary/30">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Agendar Consulta</span>
+                    <span class="sm:hidden">Agendar</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Espaçador para o Menu Fixo -->
+    <div class="pt-[110px]"></div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[85vh] flex items-center justify-center pb-16 overflow-hidden">
+        <!-- Background Image (Consultório) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Consultório MC2 Odontologia" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Gradiente Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-light/95 via-brand-light/80 to-brand-light/50 backdrop-blur-[2px] z-0"></div>
+
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <div class="text-left py-10">
+                <!-- Social Proof 5 Estrelas -->
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-brand-primary/30 bg-white/60 backdrop-blur-md text-brand-dark text-sm font-medium mb-8 fade-in-up shadow-sm">
+                    <div class="flex text-brand-gold">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <span>Referência em Harmonização e Estética</span>
+                </div>
+                
+                <h1 class="font-outfit text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 fade-in-up text-brand-dark" style="transition-delay: 100ms;">
+                    Estética Facial e Dental com <span class="text-brand-primary">Naturalidade</span> e Excelência.
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-700 font-medium mb-10 leading-relaxed fade-in-up max-w-xl" style="transition-delay: 200ms;">
+                    A harmonia perfeita entre o seu sorriso e o seu rosto. Descubra a sua melhor versão através de tratamentos premium em Harmonização Orofacial e Facetas em Resina.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 fade-in-up" style="transition-delay: 300ms;">
+                    <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o." target="_blank" class="bg-brand-primary hover:bg-brand-primaryHover text-white font-bold text-lg px-8 py-4 rounded-full transition-all shadow-xl shadow-brand-primary/30 flex items-center justify-center gap-3 w-full sm:w-auto">
+                        <i data-lucide="phone" class="w-5 h-5"></i> Iniciar Atendimento
+                    </a>
+                    <a href="#portfolio" class="px-8 py-4 rounded-full bg-white/80 backdrop-blur-sm border border-brand-primary/30 hover:border-brand-primary text-brand-dark font-semibold transition-colors w-full sm:w-auto text-center shadow-sm">
+                        Ver Depoimentos
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:block relative fade-in-up" style="transition-delay: 400ms;">
+                <div class="absolute -inset-0.5 bg-gradient-to-tr from-brand-primary to-transparent rounded-[2rem] opacity-30 blur-xl"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Divisor Decorativo -->
+    <div class="flex justify-center items-center py-6 bg-texture-dots bg-brand-surface relative z-10">
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+        <i data-lucide="gem" class="w-6 h-6 text-brand-primary mx-6"></i>
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+    </div>
+
+    <!-- NEW: Seção de Serviços Principais (Estética Facial e Dental Funcional) -->
+    <section id="servicos" class="py-24 bg-brand-surface relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-brand-primary font-bold tracking-widest uppercase text-sm mb-3 block">Nosso Foco Clínico</span>
+                <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-4 text-brand-dark">Estética Facial e <span class="text-brand-primary">Dental Funcional</span></h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Unimos a precisão da odontologia funcional com a arte da harmonização facial para entregar resultados que transformam vidas e realçam sua beleza única.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Servico 1 -->
+                <div class="bg-brand-light p-8 rounded-3xl border border-brand-primary/10 hover:shadow-xl hover:border-brand-primary/30 transition-all group fade-in-up">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 text-brand-primary group-hover:scale-110 transition-transform">
+                        <i data-lucide="sparkles" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-outfit text-2xl font-bold mb-3 text-brand-dark">Harmonização (HOF)</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Equilíbrio perfeito das proporções faciais. Protocolos exclusivos para realçar contornos e suavizar traços com absoluta naturalidade.</p>
+                    <ul class="space-y-2 text-sm text-gray-500 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Preenchimento Labial & Facial</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Bioestimuladores de Colágeno</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Fios de Sustentação</li>
+                    </ul>
+                </div>
+
+                <!-- Servico 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-primary/20 shadow-lg relative transform md:-translate-y-4 group fade-in-up" style="transition-delay: 150ms;">
+                    <div class="absolute top-0 right-6 transform -translate-y-1/2 bg-brand-primary text-white text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full">Mais Procurado</div>
+                    <div class="w-14 h-14 bg-brand-light rounded-full flex items-center justify-center shadow-sm mb-6 text-brand-primary group-hover:scale-110 transition-transform">
+                        <i data-lucide="gem" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-outfit text-2xl font-bold mb-3 text-brand-dark">Facetas em Resina</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Sorriso novo esculpido à mão. Corrigimos cor, formato e alinhamento em poucas sessões, preservando a estrutura natural do seu dente.</p>
+                    <ul class="space-y-2 text-sm text-gray-500 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Sem desgaste dental</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Alta durabilidade (Premium)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Resultado imediato</li>
+                    </ul>
+                </div>
+
+                <!-- Servico 3 -->
+                <div class="bg-brand-light p-8 rounded-3xl border border-brand-primary/10 hover:shadow-xl hover:border-brand-primary/30 transition-all group fade-in-up" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 text-brand-primary group-hover:scale-110 transition-transform">
+                        <i data-lucide="smile" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-outfit text-2xl font-bold mb-3 text-brand-dark">Botox & Prevenção</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Prevenção e tratamento de linhas de expressão e rugas. O segredo para um rosto descansado, jovem e com movimentos naturais.</p>
+                    <ul class="space-y-2 text-sm text-gray-500 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Toxina Botulínica Premium</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Tratamento de Bruxismo</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-primary"></i> Sorriso Gengival</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in-up">
+                <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Estou%20no%20site%20e%20gostaria%20de%20saber%20qual%20o%20tratamento%20ideal%20para%20mim." target="_blank" class="inline-flex items-center gap-2 text-brand-primary font-bold hover:text-brand-dark transition-colors text-lg border-b-2 border-brand-primary pb-1">
+                    Fale com uma especialista agora <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divisor Decorativo -->
+    <div class="flex justify-center items-center py-6 bg-brand-surface relative z-10">
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+        <i data-lucide="gem" class="w-6 h-6 text-brand-primary mx-6"></i>
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+    </div>
+
+    <!-- Flip Cards Section (Dores/Diferenciais) - COM CLIQUE -->
+    <section id="diferenciais" class="py-20 bg-brand-surface relative bg-texture-dots">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-4 text-brand-dark">Diferenciais que geram <span class="text-brand-primary">Confiança</span></h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Clique nos cards abaixo e descubra por que nossos pacientes escolhem a MC2 Odontologia.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="flip-card fade-in-up" onclick="flipCard(this)" style="transition-delay: 100ms;">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-lucide="sparkles" class="w-12 h-12 text-brand-primary mb-4"></i>
+                            <h3 class="font-outfit text-xl font-bold">Medo do Artificial?</h3>
+                            <p class="text-sm text-brand-primary font-semibold mt-4 px-4 py-1.5 bg-brand-primary/10 rounded-full animate-pulse">Toque para ver a solução</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <i data-lucide="check-circle-2" class="w-10 h-10 mb-3 text-white"></i>
+                            <p class="font-medium text-center mb-4">Foco total em visagismo e naturalidade. Realçamos sua beleza sem perder a sua essência.</p>
+                            <a href="https://wa.me/5521995303013?text=Quero%20saber%20mais%20sobre%20a%20naturalidade%20dos%20procedimentos." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flip-card fade-in-up" onclick="flipCard(this)" style="transition-delay: 200ms;">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-lucide="clock" class="w-12 h-12 text-brand-primary mb-4"></i>
+                            <h3 class="font-outfit text-xl font-bold">Tratamentos Longos?</h3>
+                            <p class="text-sm text-brand-primary font-semibold mt-4 px-4 py-1.5 bg-brand-primary/10 rounded-full animate-pulse">Toque para ver a solução</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <i data-lucide="smile" class="w-10 h-10 mb-3 text-white"></i>
+                            <p class="font-medium text-center mb-4">Sorriso novo em tempo recorde. Escultura dental direta com materiais premium em poucas horas.</p>
+                            <a href="https://wa.me/5521995303013?text=Gostaria%20de%20avaliar%20fazer%20Facetas%20em%20Resina." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flip-card fade-in-up" onclick="flipCard(this)" style="transition-delay: 300ms;">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-lucide="shield" class="w-12 h-12 text-brand-primary mb-4"></i>
+                            <h3 class="font-outfit text-xl font-bold">Durabilidade e Segurança</h3>
+                            <p class="text-sm text-brand-primary font-semibold mt-4 px-4 py-1.5 bg-brand-primary/10 rounded-full animate-pulse">Toque para ver a solução</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <i data-lucide="shield-check" class="w-10 h-10 mb-3 text-white"></i>
+                            <p class="font-medium text-center mb-4">Trabalhamos apenas com as melhores marcas globais para garantir resultados duradouros.</p>
+                            <a href="https://wa.me/5521995303013?text=Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20segura%20com%20voc%C3%AAs." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="flip-card fade-in-up" onclick="flipCard(this)" style="transition-delay: 400ms;">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i data-lucide="heart" class="w-12 h-12 text-brand-primary mb-4"></i>
+                            <h3 class="font-outfit text-xl font-bold">Autoestima Baixa?</h3>
+                            <p class="text-sm text-brand-primary font-semibold mt-4 px-4 py-1.5 bg-brand-primary/10 rounded-full animate-pulse">Toque para ver a solução</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <i data-lucide="star" class="w-10 h-10 mb-3 text-white"></i>
+                            <p class="font-medium text-center mb-4">Recupere a sua confiança. Através da HOF e Estética Facial, entregamos qualidade de vida.</p>
+                            <a href="https://wa.me/5521995303013?text=Preciso%20recuperar%20minha%20autoestima!%20Como%20funciona?" target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority Roller 1 (Acima da Especialista) -->
+    <div class="bg-brand-dark text-brand-primary py-3 overflow-hidden text-sm font-bold tracking-widest uppercase border-y border-brand-primary/20">
+        <div class="roller-container" style="animation-duration: 25s;">
+            <div class="roller-content">
+                <span>✦ Referência em HOF e Resina</span>
+                <span>✦ Atendimento Exclusivo</span>
+                <span>✦ Protocolos Indolores</span>
+                <span>✦ Visagismo Aplicado</span>
+                <span>✦ Materiais Premium</span>
+            </div>
+            <div class="roller-content">
+                <span>✦ Referência em HOF e Resina</span>
+                <span>✦ Atendimento Exclusivo</span>
+                <span>✦ Protocolos Indolores</span>
+                <span>✦ Visagismo Aplicado</span>
+                <span>✦ Materiais Premium</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialist / Authority -->
+    <section id="especialista" class="py-24 relative bg-brand-light overflow-hidden">
+        <div class="hero-watermark">MC2</div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image side (Foto da Doutora Cortada no Topo/Centro para esconder a parte de baixo) -->
+                <div class="w-full lg:w-1/2 fade-in-up">
+                    <div class="relative overflow-hidden rounded-[2rem] border-8 border-white shadow-2xl h-[600px]">
+                        <div class="absolute -inset-4 bg-brand-primary/20 blur-xl rounded-full z-0"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630893/fab372b7-23b3-4b18-8a65-6d38a89eda40_uzski6.jpg" alt="Dra. Monica L. Arlota" class="relative z-10 w-full h-full object-cover object-[center_top]">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md border border-gray-100 p-4 rounded-xl shadow-xl z-20 flex items-center gap-4">
+                            <div class="bg-brand-primary/10 p-3 rounded-full">
+                                <i data-lucide="award" class="w-8 h-8 text-brand-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Registro</p>
+                                <p class="font-outfit font-bold text-lg text-brand-dark">CRO-RJ: 41501</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content side -->
+                <div class="w-full lg:w-1/2 fade-in-up" style="transition-delay: 200ms;">
+                    <h4 class="text-brand-primary font-bold tracking-widest uppercase text-sm mb-2">Fundadora e Especialista</h4>
+                    <h2 class="font-outfit text-4xl md:text-5xl font-bold mb-4 text-brand-dark">Dra. Monica L. Arlota</h2>
+                    <p class="text-xl text-brand-primary font-medium mb-6">Harmonização Orofacial e Estética Dental</p>
+                    
+                    <div class="pl-6 border-l-4 border-brand-primary mb-8">
+                        <p class="text-lg italic text-gray-600">"Nossa missão é alinhar a estética do seu sorriso com a harmonia do seu rosto, trazendo de volta a sua autoconfiança de forma leve e acolhedora."</p>
+                    </div>
+
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        À frente da <strong>MC2 Odontologia</strong>, a Dra. Monica L. Arlota dedica-se a transformar vidas através de procedimentos estéticos de alta precisão. Especialista em Facetas em Resina e protocolos completos de Harmonização Orofacial (HOF), ela une conhecimento técnico apurado ao senso artístico refinado, garantindo resultados que respeitam a individualidade de cada paciente.
+                    </p>
+
+                    <!-- Specialties List -->
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <i data-lucide="check" class="w-5 h-5 text-brand-primary"></i> Visão Integrada de Face e Sorriso
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <i data-lucide="check" class="w-5 h-5 text-brand-primary"></i> Materiais de Alta Performance Global
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <i data-lucide="check" class="w-5 h-5 text-brand-primary"></i> Abordagem Humanizada e Acolhedora
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divisor Decorativo -->
+    <div class="flex justify-center items-center py-6 bg-white relative z-10 border-t border-gray-100">
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+        <i data-lucide="gem" class="w-6 h-6 text-brand-primary mx-6"></i>
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+    </div>
+
+    <!-- Portfolio Roller Automático (Carrossel de Prova Social) -->
+    <section id="portfolio" class="py-20 bg-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 mb-12 text-center fade-in-up">
+            <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-4 text-brand-dark">Histórias de <span class="text-brand-primary">Transformação</span></h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">Confira os resultados reais de nossos pacientes que resgataram a autoestima e a alegria de sorrir.</p>
+            <p class="text-xs text-gray-400 mt-4"><i data-lucide="lock" class="w-3 h-3 inline"></i> Imagens e depoimentos protegidos.</p>
+        </div>
+
+        <!-- Infinite Roller de Prova Social -->
+        <div class="w-full overflow-hidden flex mt-8 pb-10">
+            <div class="portfolio-roller">
+                <!-- Group 1 -->
+                <div class="flex gap-6 pr-6">
+                    <!-- Item 1: Sorriso Novo Masculino -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631138/491442525_18493931872001806_7932584749507744285_n._kkui58.jpg" alt="Caso 1" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Excelente atendimento! Meu sorriso novo ficou incrível e extremamente natural, superou as expectativas. Dra. Monica é espetacular."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Thiago M.</p>
+                    </div>
+
+                    <!-- Item 2: Linhas de expressão feminina -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474521452_18478048840001806_7181264534376160645_n._shbo6f.jpg" alt="Caso 2" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"As linhas de expressão praticamente sumiram! Me sinto mais jovem e descansada, com uma naturalidade que eu não achava possível."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Renata P.</p>
+                    </div>
+
+                    <!-- Item 3: Sorriso novo homem harmonização -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474584818_18478031062001806_7626220525291023130_n._cjygdu.jpg" alt="Caso 3" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Harmonização super equilibrada e sorriso perfeito. O cuidado da equipe e a precisão técnica da Dra. Monica me deixaram muito seguro."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Marcos V.</p>
+                    </div>
+
+                    <!-- Item 4: Lábios estéticos femininos -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631028/625025146_18124888579545174_7140427544986464250_n._bw5vte.jpg" alt="Caso 4" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Meus lábios ficaram maravilhosos, do jeito que eu sempre sonhei! Bem desenhados e com volume na medida certa, sem exageros."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Camila S.</p>
+                    </div>
+
+                    <!-- Item 5: Sorriso novo mulher -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631019/598901997_18547595842001806_2570363868743777077_n._jzytxf.jpg" alt="Caso 5" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"O novo sorriso mudou completamente a minha vida e a forma como eu me vejo. Muito grata por todo cuidado e carinho no processo."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Juliana F.</p>
+                    </div>
+
+                    <!-- Item 6: Perfiloplastia mulher -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631008/501470578_18501778660001806_6876022823698670611_n._eigi5u.jpg" alt="Caso 6" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Amei o resultado da perfiloplastia! Meu rosto ficou muito mais harmônico, e o procedimento foi bem tranquilo."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Beatriz R.</p>
+                    </div>
+
+                    <!-- Item 7: Botox masculino -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630998/498246284_18500618575001806_5094613738251759273_n._dl3rcn.jpg" alt="Caso 7" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Botox impecável, suavizou todas as minhas rugas na testa mas manteve as minhas expressões de forma super natural. Recomendo muito!"</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Leandro C.</p>
+                    </div>
+                </div>
+                
+                <!-- Duplicate Group 1 for seamless loop -->
+                <div class="flex gap-6 pr-6">
+                    <!-- Item 1: Sorriso Novo Masculino -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631138/491442525_18493931872001806_7932584749507744285_n._kkui58.jpg" alt="Caso 1" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Excelente atendimento! Meu sorriso novo ficou incrível e extremamente natural, superou as expectativas. Dra. Monica é espetacular."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Thiago M.</p>
+                    </div>
+
+                    <!-- Item 2: Linhas de expressão feminina -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474521452_18478048840001806_7181264534376160645_n._shbo6f.jpg" alt="Caso 2" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"As linhas de expressão praticamente sumiram! Me sinto mais jovem e descansada, com uma naturalidade que eu não achava possível."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Renata P.</p>
+                    </div>
+
+                    <!-- Item 3: Sorriso novo homem harmonização -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474584818_18478031062001806_7626220525291023130_n._cjygdu.jpg" alt="Caso 3" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Harmonização super equilibrada e sorriso perfeito. O cuidado da equipe e a precisão técnica da Dra. Monica me deixaram muito seguro."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Marcos V.</p>
+                    </div>
+
+                    <!-- Item 4: Lábios estéticos femininos -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631028/625025146_18124888579545174_7140427544986464250_n._bw5vte.jpg" alt="Caso 4" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Meus lábios ficaram maravilhosos, do jeito que eu sempre sonhei! Bem desenhados e com volume na medida certa, sem exageros."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Camila S.</p>
+                    </div>
+
+                    <!-- Item 5: Sorriso novo mulher -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631019/598901997_18547595842001806_2570363868743777077_n._jzytxf.jpg" alt="Caso 5" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"O novo sorriso mudou completamente a minha vida e a forma como eu me vejo. Muito grata por todo cuidado e carinho no processo."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Juliana F.</p>
+                    </div>
+
+                    <!-- Item 6: Perfiloplastia mulher -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631008/501470578_18501778660001806_6876022823698670611_n._eigi5u.jpg" alt="Caso 6" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Amei o resultado da perfiloplastia! Meu rosto ficou muito mais harmônico, e o procedimento foi bem tranquilo."</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Beatriz R.</p>
+                    </div>
+
+                    <!-- Item 7: Botox masculino -->
+                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630998/498246284_18500618575001806_5094613738251759273_n._dl3rcn.jpg" alt="Caso 7" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
+                        <div class="flex text-brand-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mb-4">"Botox impecável, suavizou todas as minhas rugas na testa mas manteve as minhas expressões de forma super natural. Recomendo muito!"</p>
+                        <p class="font-outfit font-bold text-brand-dark">- Leandro C.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divisor Decorativo -->
+    <div class="flex justify-center items-center py-6 bg-brand-light relative z-10 border-t border-brand-primary/10">
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+        <i data-lucide="gem" class="w-6 h-6 text-brand-primary mx-6"></i>
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+    </div>
+
+    <!-- Qualification Quiz (Pré-atendimento) -->
+    <section id="quiz-section" class="py-24 relative bg-brand-light border-b border-gray-100 bg-texture-dots">
+        <div class="max-w-3xl mx-auto px-6 relative z-10">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 fade-in-up">
+                
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="clipboard-list" class="w-8 h-8 text-brand-primary"></i>
+                    </div>
+                    <h2 class="font-outfit text-3xl font-bold mb-2 text-brand-dark">Adiante seu Atendimento</h2>
+                    <p class="text-sm text-gray-500">Responda rapidamente para descobrirmos seu tratamento ideal antes mesmo de falar conosco no WhatsApp.</p>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quiz-container" class="relative min-h-[250px]">
+                    
+                    <!-- Step 1 -->
+                    <div id="step-1" class="quiz-step transition-all duration-500 absolute w-full top-0 left-0">
+                        <h3 class="text-xl font-semibold mb-6 text-brand-dark">1. O que você gostaria de melhorar hoje?</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="nextStep(2)" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Harmonia do Rosto (HOF) <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <button onclick="nextStep(2)" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Cor e Formato dos Dentes <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <button onclick="nextStep(2)" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Linhas de Expressão/Botox <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <button onclick="nextStep(2)" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Preenchimento Labial <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2" class="quiz-step opacity-0 pointer-events-none translate-x-8 transition-all duration-500 absolute w-full top-0 left-0">
+                        <h3 class="text-xl font-semibold mb-6 text-brand-dark">2. Qual o seu nível de urgência para iniciar?</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            <button onclick="showFinal()" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Imediata (Quero agendar agora) <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <button onclick="showFinal()" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Próximos meses (Estou me planejando) <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <button onclick="showFinal()" class="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-primary hover:bg-brand-primary/5 text-left transition-all group flex items-center justify-between text-gray-700 font-medium">
+                                Apenas pesquisando valores no momento <i data-lucide="chevron-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                        </div>
+                        <button onclick="prevStep(1)" class="mt-6 text-sm text-gray-400 hover:text-brand-primary transition-colors flex items-center gap-1">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar
+                        </button>
+                    </div>
+
+                    <!-- Final Step -->
+                    <div id="step-final" class="quiz-step opacity-0 pointer-events-none scale-95 transition-all duration-500 absolute w-full top-0 left-0 text-center py-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-brand-dark">Tudo Pronto!</h3>
+                        <p class="text-gray-500 mb-8">Já sabemos o que você precisa. Nossa equipe está pronta para te atender com exclusividade no WhatsApp.</p>
+                        
+                        <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Fiz%20o%20quiz%20no%20site%20para%20adiantar%20meu%20atendimento%20e%20gostaria%20de%20agendar%20minha%20consulta." target="_blank" class="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg px-8 py-4 rounded-full transition-all flex items-center justify-center gap-3 w-full shadow-lg">
+                            <i data-lucide="phone" class="w-5 h-5"></i> Falar no WhatsApp
+                        </a>
+                        <button onclick="resetQuiz()" class="mt-6 text-sm text-gray-400 hover:text-brand-primary transition-colors">
+                            Refazer diagnóstico
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-white border-b border-gray-100">
+        <div class="max-w-4xl mx-auto px-6 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-4 text-brand-dark">Dúvidas <span class="text-brand-primary">Frequentes</span></h2>
+                <p class="text-gray-500 text-lg">Tudo o que você precisa saber antes de iniciar sua transformação.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="group border border-gray-200 rounded-2xl bg-brand-light [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-semibold text-brand-dark">
+                        <span class="text-lg">Os procedimentos estéticos são dolorosos?</span>
+                        <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-primary"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Não. Utilizamos técnicas avançadas, anestésicos locais de alta qualidade e protocolos de conforto para garantir que sua experiência seja o mais tranquila e indolor possível.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="group border border-gray-200 rounded-2xl bg-brand-light [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-semibold text-brand-dark">
+                        <span class="text-lg">Quanto tempo duram as Facetas em Resina?</span>
+                        <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-primary"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        A durabilidade depende muito dos hábitos do paciente, mas com os cuidados adequados e manutenções preventivas (polimento), as facetas em resina de alta performance podem durar de 5 a 10 anos em perfeito estado.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="group border border-gray-200 rounded-2xl bg-brand-light [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-semibold text-brand-dark">
+                        <span class="text-lg">A Harmonização Orofacial (HOF) tira a minha expressão?</span>
+                        <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-primary"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        De forma alguma. Nosso maior compromisso na MC2 Odontologia é com a <strong>naturalidade</strong> e o visagismo. O objetivo é realçar sua beleza natural e suavizar marcas, mantendo todas as suas características e expressões faciais.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 4 -->
+                <details class="group border border-gray-200 rounded-2xl bg-brand-light [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-semibold text-brand-dark">
+                        <span class="text-lg">Como funciona a primeira avaliação?</span>
+                        <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-primary"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        É uma consulta detalhada e individualizada onde entendemos suas queixas, realizamos fotografias faciais e intraorais, e construímos juntos um plano de tratamento perfeito para suas necessidades estéticas e funcionais.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divisor Decorativo -->
+    <div class="flex justify-center items-center py-6 bg-white relative z-10 border-t border-gray-100">
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+        <i data-lucide="gem" class="w-6 h-6 text-brand-primary mx-6"></i>
+        <div class="h-px bg-brand-primary/30 w-1/4 max-w-[150px]"></div>
+    </div>
+
+    <!-- Localização / Consultório Físico -->
+    <section id="localizacao" class="py-24 bg-white bg-texture-lines">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <!-- Informações -->
+                <div class="w-full lg:w-1/2 fade-in-up">
+                    <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-6 text-brand-dark">Onde a <span class="text-brand-primary">Magia Acontece</span></h2>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Nossa clínica foi projetada para oferecer o máximo de conforto, privacidade e tecnologia. Cada detalhe foi pensado para que a sua experiência seja relaxante e exclusiva desde o primeiro momento.
+                    </p>
+                    
+                    <div class="bg-brand-light p-6 rounded-2xl border border-brand-primary/20 mb-8">
+                        <h4 class="font-bold text-brand-dark text-lg mb-4 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="text-brand-primary"></i> Nosso Endereço
+                        </h4>
+                        <p class="text-gray-700 font-medium text-lg">Le Monde Offices</p>
+                        <p class="text-gray-600">Av. das Américas 3500 - Bloco 4 - Sala 506</p>
+                        <p class="text-gray-600">Barra da Tijuca, Rio de Janeiro - RJ</p>
+                    </div>
+
+                    <div class="text-center sm:text-left">
+                        <p class="text-xl font-outfit font-semibold text-brand-dark mb-4">Será um prazer ter você aqui com a gente!</p>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="w-full lg:w-1/2 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-full h-[450px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.768688329606!2d-43.348616188444654!3d-22.995514041180295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bda2c5ce86fbf%3A0xc3cb74efb1e39b98!2sLe%20Monde%20Office!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority Roller 2 (Abaixo do Mapa) -->
+    <div class="bg-brand-primary text-white py-3 overflow-hidden text-sm font-bold tracking-widest uppercase shadow-inner relative z-20">
+        <div class="roller-container" style="animation-duration: 30s;">
+            <div class="roller-content">
+                <span>✦ Dra. Monica L. Arlota</span>
+                <span>✦ Le Monde Offices</span>
+                <span>✦ Barra da Tijuca</span>
+                <span>✦ Estética Avançada</span>
+                <span>✦ Agende sua Consulta</span>
+            </div>
+            <div class="roller-content">
+                <span>✦ Dra. Monica L. Arlota</span>
+                <span>✦ Le Monde Offices</span>
+                <span>✦ Barra da Tijuca</span>
+                <span>✦ Estética Avançada</span>
+                <span>✦ Agende sua Consulta</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Offer / Urgency -->
+    <section class="py-20 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute -inset-0.5 bg-[radial-gradient(circle_at_top_right,rgba(206,173,148,0.2)_0%,transparent_60%)]"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center fade-in-up">
+            <h2 class="font-outfit text-4xl md:text-5xl font-bold mb-6">Sua transformação não pode esperar.</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Temos <strong class="text-brand-primary">vagas limitadas</strong> na nossa agenda deste mês para avaliações premium de estética e HOF. Garanta o seu horário antes que acabem.</p>
+            
+            <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vi%20que%20as%20vagas%20s%C3%A3o%20limitadas%20e%20quero%20agendar%20meu%20hor%C3%A1rio%20com%20a%20Dra.%20Monica." target="_blank" class="inline-flex items-center gap-3 bg-brand-primary hover:bg-brand-primaryHover text-white px-10 py-5 rounded-full font-bold text-lg transition-all shadow-xl shadow-brand-primary/20 animate-bounce">
+                <i data-lucide="calendar-check" class="w-6 h-6"></i> Quero Agendar Meu Horário Agora
+            </a>
+            <p class="text-sm text-gray-400 mt-6"><i data-lucide="clock" class="w-4 h-4 inline mb-0.5"></i> Resposta rápida via WhatsApp garantida em horário comercial.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#3D332B] pt-16 pb-8 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631254/306765921_5535633293146618_8064286451062732630_n._c0uksv.jpg" alt="Logo MC2 Odontologia" class="w-12 h-12 rounded-full object-cover">
+                        <span class="font-outfit font-bold text-xl tracking-wide">MC2 ODONTOLOGIA</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Dra. Monica L. Arlota | Odontologia Estética e Funcional. Especialistas em realçar a sua beleza natural através de tratamentos modernos e minimamente invasivos.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/mc2odontologia/" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-primary transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://wa.me/5521995303013" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#25D366] transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-outfit font-bold mb-6 text-lg text-brand-primary">Contatos & Local</h4>
+                    <ul class="text-gray-300 text-sm space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary shrink-0"></i>
+                            <span>Le Monde Offices - Av. das Américas 3500<br>Bloco 4 - Sala 506<br>Barra da Tijuca, RJ</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-brand-primary shrink-0"></i>
+                            <a href="https://wa.me/5521995303013" class="hover:text-brand-primary transition-colors">(21) 99530-3013</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-outfit font-bold mb-6 text-lg text-brand-primary">Atendimento</h4>
+                    <ul class="text-gray-300 text-sm space-y-2 mb-6">
+                        <li class="flex justify-between border-b border-white/10 pb-2"><span>Segunda a Sexta</span> <span>09:00 - 18:00</span></li>
+                        <li class="flex justify-between border-b border-white/10 pb-2"><span>Sábado</span> <span>Sob Consulta</span></li>
+                        <li class="flex justify-between pb-2"><span>Domingo</span> <span class="text-brand-primary">Fechado</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400">
+                <p>&copy; 2026 MC2 Odontologia. Todos os direitos reservados. CRO-RJ: 41501.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 800); 
+        });
+
+        // Anti-download strict protection
+        document.addEventListener('contextmenu', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
+
+        // Sticky Navbar Logic (Compact effect)
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                nav.classList.add('nav-compact');
+                nav.classList.replace('py-4', 'py-2');
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('nav-compact');
+                nav.classList.replace('py-2', 'py-4');
+                nav.classList.remove('shadow-md');
+            }
+        });
+
+        // Scroll Animations (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Flip Card Logic (Click)
+        function flipCard(element) {
+            // Remove 'flipped' from all other cards to keep only one open at a time (opcional, pode remover se quiser vários abertos)
+            document.querySelectorAll('.flip-card').forEach(card => {
+                if(card !== element) card.classList.remove('flipped');
+            });
+            // Toggle do card clicado
+            element.classList.toggle('flipped');
+        }
+
+        // Quiz Logic
+        function nextStep(step) {
+            const current = step - 1;
+            document.getElementById(`step-${current}`).classList.add('opacity-0', 'pointer-events-none', '-translate-x-8');
+            
+            setTimeout(() => {
+                const nextEl = document.getElementById(`step-${step}`);
+                nextEl.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-8');
+                nextEl.classList.add('translate-x-0');
+            }, 300);
+        }
+
+        function prevStep(step) {
+            const current = step + 1;
+            document.getElementById(`step-${current}`).classList.add('opacity-0', 'pointer-events-none', 'translate-x-8');
+            document.getElementById(`step-${current}`).classList.remove('translate-x-0');
+            
+            setTimeout(() => {
+                const prevEl = document.getElementById(`step-${step}`);
+                prevEl.classList.remove('opacity-0', 'pointer-events-none', '-translate-x-8');
+            }, 300);
+        }
+
+        function showFinal() {
+            document.getElementById('step-2').classList.add('opacity-0', 'pointer-events-none', '-translate-x-8');
+            document.getElementById('step-2').classList.remove('translate-x-0');
+            
+            setTimeout(() => {
+                const finalEl = document.getElementById('step-final');
+                finalEl.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                finalEl.classList.add('scale-100');
+            }, 300);
+        }
+
+        function resetQuiz() {
+            document.getElementById('step-final').classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            document.getElementById('step-final').classList.remove('scale-100');
+            
+            document.getElementById('step-2').classList.add('translate-x-8');
+            document.getElementById('step-2').classList.remove('-translate-x-8', 'translate-x-0');
+            
+            setTimeout(() => {
+                const step1 = document.getElementById('step-1');
+                step1.classList.remove('opacity-0', 'pointer-events-none', '-translate-x-8');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
