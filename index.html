@@ -152,6 +152,38 @@
             transform: rotateY(180deg);
         }
 
+        /* Portfolio Native Scroll Carousel */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Button Glow Animation */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: sweep 3s infinite;
+            pointer-events: none;
+        }
+        @keyframes sweep {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
         /* Portfolio Automatic Roller (Social Proof) */
         .portfolio-roller {
             display: flex;
@@ -208,10 +240,10 @@
     <!-- Botões Flutuantes (WhatsApp e Instagram) -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         <a href="https://www.instagram.com/mc2odontologia/" target="_blank" class="w-12 h-12 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform border border-white/20">
-            <i data-lucide="instagram" class="w-6 h-6"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
         </a>
         <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform border border-white/20">
-            <i data-lucide="phone" class="w-6 h-6"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         </a>
     </div>
 
@@ -300,8 +332,8 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 fade-in-up" style="transition-delay: 300ms;">
-                    <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o." target="_blank" class="bg-brand-primary hover:bg-brand-primaryHover text-white font-bold text-lg px-8 py-4 rounded-full transition-all shadow-xl shadow-brand-primary/30 flex items-center justify-center gap-3 w-full sm:w-auto">
-                        <i data-lucide="phone" class="w-5 h-5"></i> Iniciar Atendimento
+                    <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o." target="_blank" class="btn-glow bg-brand-primary hover:bg-brand-primaryHover text-white font-bold text-lg px-8 py-4 rounded-full transition-all shadow-xl shadow-brand-primary/30 flex items-center justify-center gap-3 w-full sm:w-auto">
+                        <i data-lucide="phone" class="w-5 h-5"></i> <span class="relative z-10">Iniciar Atendimento</span>
                     </a>
                     <a href="#portfolio" class="px-8 py-4 rounded-full bg-white/80 backdrop-blur-sm border border-brand-primary/30 hover:border-brand-primary text-brand-dark font-semibold transition-colors w-full sm:w-auto text-center shadow-sm">
                         Ver Depoimentos
@@ -411,8 +443,8 @@
                         <div class="flip-card-back">
                             <i data-lucide="check-circle-2" class="w-10 h-10 mb-3 text-white"></i>
                             <p class="font-medium text-center mb-4">Foco total em visagismo e naturalidade. Realçamos sua beleza sem perder a sua essência.</p>
-                            <a href="https://wa.me/5521995303013?text=Quero%20saber%20mais%20sobre%20a%20naturalidade%20dos%20procedimentos." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
-                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            <a href="https://wa.me/5521995303013?text=Quero%20saber%20mais%20sobre%20a%20naturalidade%20dos%20procedimentos." target="_blank" onclick="event.stopPropagation();" class="btn-glow px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> <span class="relative z-10">Falar Agora</span>
                             </a>
                         </div>
                     </div>
@@ -429,8 +461,8 @@
                         <div class="flip-card-back">
                             <i data-lucide="smile" class="w-10 h-10 mb-3 text-white"></i>
                             <p class="font-medium text-center mb-4">Sorriso novo em tempo recorde. Escultura dental direta com materiais premium em poucas horas.</p>
-                            <a href="https://wa.me/5521995303013?text=Gostaria%20de%20avaliar%20fazer%20Facetas%20em%20Resina." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
-                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            <a href="https://wa.me/5521995303013?text=Gostaria%20de%20avaliar%20fazer%20Facetas%20em%20Resina." target="_blank" onclick="event.stopPropagation();" class="btn-glow px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> <span class="relative z-10">Falar Agora</span>
                             </a>
                         </div>
                     </div>
@@ -447,8 +479,8 @@
                         <div class="flip-card-back">
                             <i data-lucide="shield-check" class="w-10 h-10 mb-3 text-white"></i>
                             <p class="font-medium text-center mb-4">Trabalhamos apenas com as melhores marcas globais para garantir resultados duradouros.</p>
-                            <a href="https://wa.me/5521995303013?text=Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20segura%20com%20voc%C3%AAs." target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
-                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            <a href="https://wa.me/5521995303013?text=Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20segura%20com%20voc%C3%AAs." target="_blank" onclick="event.stopPropagation();" class="btn-glow px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> <span class="relative z-10">Falar Agora</span>
                             </a>
                         </div>
                     </div>
@@ -465,8 +497,8 @@
                         <div class="flip-card-back">
                             <i data-lucide="star" class="w-10 h-10 mb-3 text-white"></i>
                             <p class="font-medium text-center mb-4">Recupere a sua confiança. Através da HOF e Estética Facial, entregamos qualidade de vida.</p>
-                            <a href="https://wa.me/5521995303013?text=Preciso%20recuperar%20minha%20autoestima!%20Como%20funciona?" target="_blank" onclick="event.stopPropagation();" class="px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
-                                <i data-lucide="phone" class="w-4 h-4"></i> Falar Agora
+                            <a href="https://wa.me/5521995303013?text=Preciso%20recuperar%20minha%20autoestima!%20Como%20funciona?" target="_blank" onclick="event.stopPropagation();" class="btn-glow px-5 py-2 bg-white text-brand-primary hover:bg-brand-light rounded-full text-sm font-bold flex items-center gap-2 shadow-lg transition-colors">
+                                <i data-lucide="phone" class="w-4 h-4"></i> <span class="relative z-10">Falar Agora</span>
                             </a>
                         </div>
                     </div>
@@ -561,171 +593,88 @@
     <section id="portfolio" class="py-20 bg-white overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-6 mb-12 text-center fade-in-up">
             <h2 class="font-outfit text-3xl md:text-5xl font-bold mb-4 text-brand-dark">Histórias de <span class="text-brand-primary">Transformação</span></h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">Confira os resultados reais de nossos pacientes que resgataram a autoestima e a alegria de sorrir.</p>
+            <p class="text-gray-500 max-w-2xl mx-auto">Arraste para o lado e confira os resultados reais de nossos pacientes que resgataram a autoestima e a alegria de sorrir.</p>
             <p class="text-xs text-gray-400 mt-4"><i data-lucide="lock" class="w-3 h-3 inline"></i> Imagens e depoimentos protegidos.</p>
         </div>
 
-        <!-- Infinite Roller de Prova Social -->
-        <div class="w-full overflow-hidden flex mt-8 pb-10">
-            <div class="portfolio-roller">
-                <!-- Group 1 -->
-                <div class="flex gap-6 pr-6">
-                    <!-- Item 1: Sorriso Novo Masculino -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631138/491442525_18493931872001806_7932584749507744285_n._kkui58.jpg" alt="Caso 1" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Excelente atendimento! Meu sorriso novo ficou incrível e extremamente natural, superou as expectativas. Dra. Monica é espetacular."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Thiago M.</p>
+        <!-- Carrossel de Prova Social (Arraste) -->
+        <div class="w-full mt-8 pb-10">
+            <div id="social-carousel" class="flex gap-6 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing scroll-smooth">
+                <!-- Item 1: Sorriso Novo Masculino -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631138/491442525_18493931872001806_7932584749507744285_n._kkui58.jpg" alt="Caso 1" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
-
-                    <!-- Item 2: Linhas de expressão feminina -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474521452_18478048840001806_7181264534376160645_n._shbo6f.jpg" alt="Caso 2" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"As linhas de expressão praticamente sumiram! Me sinto mais jovem e descansada, com uma naturalidade que eu não achava possível."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Renata P.</p>
-                    </div>
-
-                    <!-- Item 3: Sorriso novo homem harmonização -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474584818_18478031062001806_7626220525291023130_n._cjygdu.jpg" alt="Caso 3" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Harmonização super equilibrada e sorriso perfeito. O cuidado da equipe e a precisão técnica da Dra. Monica me deixaram muito seguro."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Marcos V.</p>
-                    </div>
-
-                    <!-- Item 4: Lábios estéticos femininos -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631028/625025146_18124888579545174_7140427544986464250_n._bw5vte.jpg" alt="Caso 4" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Meus lábios ficaram maravilhosos, do jeito que eu sempre sonhei! Bem desenhados e com volume na medida certa, sem exageros."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Camila S.</p>
-                    </div>
-
-                    <!-- Item 5: Sorriso novo mulher -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631019/598901997_18547595842001806_2570363868743777077_n._jzytxf.jpg" alt="Caso 5" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"O novo sorriso mudou completamente a minha vida e a forma como eu me vejo. Muito grata por todo cuidado e carinho no processo."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Juliana F.</p>
-                    </div>
-
-                    <!-- Item 6: Perfiloplastia mulher -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631008/501470578_18501778660001806_6876022823698670611_n._eigi5u.jpg" alt="Caso 6" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Amei o resultado da perfiloplastia! Meu rosto ficou muito mais harmônico, e o procedimento foi bem tranquilo."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Beatriz R.</p>
-                    </div>
-
-                    <!-- Item 7: Botox masculino -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630998/498246284_18500618575001806_5094613738251759273_n._dl3rcn.jpg" alt="Caso 7" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Botox impecável, suavizou todas as minhas rugas na testa mas manteve as minhas expressões de forma super natural. Recomendo muito!"</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Leandro C.</p>
-                    </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"Excelente atendimento! Meu sorriso novo ficou incrível e extremamente natural, superou as expectativas. Dra. Monica é espetacular."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Thiago M.</p>
                 </div>
-                
-                <!-- Duplicate Group 1 for seamless loop -->
-                <div class="flex gap-6 pr-6">
-                    <!-- Item 1: Sorriso Novo Masculino -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631138/491442525_18493931872001806_7932584749507744285_n._kkui58.jpg" alt="Caso 1" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Excelente atendimento! Meu sorriso novo ficou incrível e extremamente natural, superou as expectativas. Dra. Monica é espetacular."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Thiago M.</p>
-                    </div>
 
-                    <!-- Item 2: Linhas de expressão feminina -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474521452_18478048840001806_7181264534376160645_n._shbo6f.jpg" alt="Caso 2" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"As linhas de expressão praticamente sumiram! Me sinto mais jovem e descansada, com uma naturalidade que eu não achava possível."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Renata P.</p>
+                <!-- Item 2: Linhas de expressão feminina -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474521452_18478048840001806_7181264534376160645_n._shbo6f.jpg" alt="Caso 2" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"As linhas de expressão praticamente sumiram! Me sinto mais jovem e descansada, com uma naturalidade que eu não achava possível."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Renata P.</p>
+                </div>
 
-                    <!-- Item 3: Sorriso novo homem harmonização -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474584818_18478031062001806_7626220525291023130_n._cjygdu.jpg" alt="Caso 3" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Harmonização super equilibrada e sorriso perfeito. O cuidado da equipe e a precisão técnica da Dra. Monica me deixaram muito seguro."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Marcos V.</p>
+                <!-- Item 3: Sorriso novo homem harmonização -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631139/474584818_18478031062001806_7626220525291023130_n._cjygdu.jpg" alt="Caso 3" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"Harmonização super equilibrada e sorriso perfeito. O cuidado da equipe e a precisão técnica da Dra. Monica me deixaram muito seguro."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Marcos V.</p>
+                </div>
 
-                    <!-- Item 4: Lábios estéticos femininos -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631028/625025146_18124888579545174_7140427544986464250_n._bw5vte.jpg" alt="Caso 4" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Meus lábios ficaram maravilhosos, do jeito que eu sempre sonhei! Bem desenhados e com volume na medida certa, sem exageros."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Camila S.</p>
+                <!-- Item 4: Lábios estéticos femininos -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631028/625025146_18124888579545174_7140427544986464250_n._bw5vte.jpg" alt="Caso 4" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"Meus lábios ficaram maravilhosos, do jeito que eu sempre sonhei! Bem desenhados e com volume na medida certa, sem exageros."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Camila S.</p>
+                </div>
 
-                    <!-- Item 5: Sorriso novo mulher -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631019/598901997_18547595842001806_2570363868743777077_n._jzytxf.jpg" alt="Caso 5" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"O novo sorriso mudou completamente a minha vida e a forma como eu me vejo. Muito grata por todo cuidado e carinho no processo."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Juliana F.</p>
+                <!-- Item 5: Sorriso novo mulher -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631019/598901997_18547595842001806_2570363868743777077_n._jzytxf.jpg" alt="Caso 5" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"O novo sorriso mudou completamente a minha vida e a forma como eu me vejo. Muito grata por todo cuidado e carinho no processo."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Juliana F.</p>
+                </div>
 
-                    <!-- Item 6: Perfiloplastia mulher -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631008/501470578_18501778660001806_6876022823698670611_n._eigi5u.jpg" alt="Caso 6" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Amei o resultado da perfiloplastia! Meu rosto ficou muito mais harmônico, e o procedimento foi bem tranquilo."</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Beatriz R.</p>
+                <!-- Item 6: Perfiloplastia mulher -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774631008/501470578_18501778660001806_6876022823698670611_n._eigi5u.jpg" alt="Caso 6" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 object-top pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"Amei o resultado da perfiloplastia! Meu rosto ficou muito mais harmônico, e o procedimento foi bem tranquilo."</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Beatriz R.</p>
+                </div>
 
-                    <!-- Item 7: Botox masculino -->
-                    <div class="anti-download-wrapper w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                        <div class="anti-download-overlay" oncontextmenu="return false;"></div>
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630998/498246284_18500618575001806_5094613738251759273_n._dl3rcn.jpg" alt="Caso 7" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4">
-                        <div class="flex text-brand-gold mb-3">
-                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p class="text-gray-600 text-sm italic mb-4">"Botox impecável, suavizou todas as minhas rugas na testa mas manteve as minhas expressões de forma super natural. Recomendo muito!"</p>
-                        <p class="font-outfit font-bold text-brand-dark">- Leandro C.</p>
+                <!-- Item 7: Botox masculino -->
+                <div class="snap-center anti-download-wrapper w-[300px] sm:w-[340px] bg-brand-light p-5 rounded-3xl shadow-md border border-brand-primary/10 flex-shrink-0 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="anti-download-overlay" oncontextmenu="return false;"></div>
+                    <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1774630998/498246284_18500618575001806_5094613738251759273_n._dl3rcn.jpg" alt="Caso 7" draggable="false" class="w-full h-[220px] object-cover rounded-2xl mb-4 pointer-events-none">
+                    <div class="flex text-brand-gold mb-3">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
+                    <p class="text-gray-600 text-sm italic mb-4">"Botox impecável, suavizou todas as minhas rugas na testa mas manteve as minhas expressões de forma super natural. Recomendo muito!"</p>
+                    <p class="font-outfit font-bold text-brand-dark">- Leandro C.</p>
                 </div>
             </div>
         </div>
@@ -752,7 +701,7 @@
                 </div>
 
                 <!-- Quiz Container -->
-                <div id="quiz-container" class="relative min-h-[250px]">
+                <div id="quiz-container" class="relative min-h-[460px] md:min-h-[250px]">
                     
                     <!-- Step 1 -->
                     <div id="step-1" class="quiz-step transition-all duration-500 absolute w-full top-0 left-0">
@@ -800,8 +749,8 @@
                         <h3 class="text-2xl font-bold mb-2 text-brand-dark">Tudo Pronto!</h3>
                         <p class="text-gray-500 mb-8">Já sabemos o que você precisa. Nossa equipe está pronta para te atender com exclusividade no WhatsApp.</p>
                         
-                        <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Fiz%20o%20quiz%20no%20site%20para%20adiantar%20meu%20atendimento%20e%20gostaria%20de%20agendar%20minha%20consulta." target="_blank" class="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg px-8 py-4 rounded-full transition-all flex items-center justify-center gap-3 w-full shadow-lg">
-                            <i data-lucide="phone" class="w-5 h-5"></i> Falar no WhatsApp
+                        <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Fiz%20o%20quiz%20no%20site%20para%20adiantar%20meu%20atendimento%20e%20gostaria%20de%20agendar%20minha%20consulta." target="_blank" class="btn-glow bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg px-8 py-4 rounded-full transition-all flex items-center justify-center gap-3 w-full shadow-lg">
+                            <i data-lucide="phone" class="w-5 h-5"></i> <span class="relative z-10">Falar no WhatsApp</span>
                         </a>
                         <button onclick="resetQuiz()" class="mt-6 text-sm text-gray-400 hover:text-brand-primary transition-colors">
                             Refazer diagnóstico
@@ -906,6 +855,9 @@
 
                     <div class="text-center sm:text-left">
                         <p class="text-xl font-outfit font-semibold text-brand-dark mb-4">Será um prazer ter você aqui com a gente!</p>
+                        <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20presencial%20no%20Le%20Monde." target="_blank" class="btn-glow inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-black text-white px-8 py-4 rounded-full font-semibold transition-colors shadow-lg mt-2 w-full sm:w-auto">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i> <span class="relative z-10">Agendar Visita</span>
+                        </a>
                     </div>
                 </div>
 
@@ -954,8 +906,8 @@
             <h2 class="font-outfit text-4xl md:text-5xl font-bold mb-6">Sua transformação não pode esperar.</h2>
             <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Temos <strong class="text-brand-primary">vagas limitadas</strong> na nossa agenda deste mês para avaliações premium de estética e HOF. Garanta o seu horário antes que acabem.</p>
             
-            <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vi%20que%20as%20vagas%20s%C3%A3o%20limitadas%20e%20quero%20agendar%20meu%20hor%C3%A1rio%20com%20a%20Dra.%20Monica." target="_blank" class="inline-flex items-center gap-3 bg-brand-primary hover:bg-brand-primaryHover text-white px-10 py-5 rounded-full font-bold text-lg transition-all shadow-xl shadow-brand-primary/20 animate-bounce">
-                <i data-lucide="calendar-check" class="w-6 h-6"></i> Quero Agendar Meu Horário Agora
+            <a href="https://wa.me/5521995303013?text=Ol%C3%A1!%20Vi%20que%20as%20vagas%20s%C3%A3o%20limitadas%20e%20quero%20agendar%20meu%20hor%C3%A1rio%20com%20a%20Dra.%20Monica." target="_blank" class="btn-glow inline-flex items-center gap-3 bg-brand-primary hover:bg-brand-primaryHover text-white px-10 py-5 rounded-full font-bold text-lg transition-all shadow-xl shadow-brand-primary/20 animate-bounce">
+                <i data-lucide="calendar-check" class="w-6 h-6"></i> <span class="relative z-10">Quero Agendar Meu Horário Agora</span>
             </a>
             <p class="text-sm text-gray-400 mt-6"><i data-lucide="clock" class="w-4 h-4 inline mb-0.5"></i> Resposta rápida via WhatsApp garantida em horário comercial.</p>
         </div>
@@ -1079,6 +1031,35 @@
             // Toggle do card clicado
             element.classList.toggle('flipped');
         }
+
+        // Carousel Drag/Physics Logic
+        const slider = document.getElementById('social-carousel');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active:cursor-grabbing');
+            slider.classList.remove('snap-mandatory', 'scroll-smooth'); 
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.add('snap-mandatory', 'scroll-smooth');
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.add('snap-mandatory', 'scroll-smooth');
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll-fast multiplier
+            slider.scrollLeft = scrollLeft - walk;
+        });
 
         // Quiz Logic
         function nextStep(step) {
